@@ -4,15 +4,12 @@ import os
 def get_system_info():
     os_type = os.name
     if os_type == 'nt':
-        print("Starting with Windows propertis...")
         return SystemInfoWindows()
     else:
         os_name = os.uname()[0]
         if os_name == 'Linux':
-            print("Starting with Linux propertis...")
             return SystemInfoLinux()
         if os_name == 'Darwin':
-            print("Starting with macOS propertis...")
             return SystemInfoDarwin()
         else:
             raise EnvironmentError("Unknown OS type!")
@@ -34,7 +31,7 @@ class SystemInfoWindows:
         self.PROCESSOR_INFO = {
             "NAME": os.environ['PROCESSOR_IDENTIFIER'],
             "ARCH": os.environ['PROCESSOR_ARCHITECTURE'],
-            "PHYSICAL_CORES": os.environ['NUMBER_OF_PROCESSORS']
+            "CORES": os.environ['NUMBER_OF_PROCESSORS']
         }
 
     def __str__(self):

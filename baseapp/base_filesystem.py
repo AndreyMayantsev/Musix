@@ -12,10 +12,10 @@ class BaseFilesystem:
                 os.mkdir(folder)
                 return True
             except PermissionError:
-                print(f"Log folder does not exists and can't be created! -> {folder} : Permission Denied!")
+                print(f"Folder does not exists and can't be created! -> {folder} : Permission Denied!")
                 return False
             except Exception as error:
-                print(f"Log folder does not exists and can't be created! -> {folder} : {error}")
+                print(f"Folder does not exists and can't be created! -> {folder} : {error}")
                 return False
 
     def read_text_file(self, file):
@@ -34,9 +34,9 @@ class BaseFilesystem:
             raw.write(data)
             raw.close()
         except PermissionError:
-            raise PermissionError(f"Error when writing log to a file -> {file} : Permission Denied!")
+            raise PermissionError(f"Error when writing file -> {file} : Permission Denied!")
         except Exception as error:
-            raise Exception(f"Error when writing log to a file -> {file} : {error}!")
+            raise Exception(f"Error when writing file -> {file} : {error}!")
 
     def __read_text_file(self, file):
         try:
@@ -45,6 +45,6 @@ class BaseFilesystem:
             raw.close()
             return data
         except PermissionError:
-            raise PermissionError(f"Error when writing log to a file -> {file} : Permission Denied!")
+            raise PermissionError(f"Error when writing file -> {file} : Permission Denied!")
         except Exception as error:
-            raise Exception(f"Error when writing log to a file -> {file} : {error}!")
+            raise Exception(f"Error when writing file -> {file} : {error}!")
