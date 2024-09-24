@@ -9,7 +9,7 @@ from . import app_config
 
 class Settings:
 
-    SETTINGS = {}
+    __SETTINGS = {}
 
     def __init__(self):
         self.log = logging.Log("Settings")
@@ -22,18 +22,25 @@ class Settings:
         self.load_settings()
 
     def save_settings(self):
-        self.log.write_info(f'Settings {self.SETTINGS} saved to disk')
-        self.filesystem.rewrite_text_file(self.settings_file, json.dumps(self.SETTINGS))
+        self.log.write_info(f'Settings {self.__SETTINGS} saved to disk')
+        self.filesystem.rewrite_text_file(self.settings_file, json.dumps(self.__SETTINGS))
 
     def load_settings(self):
-        self.SETTINGS = json.loads(self.filesystem.read_text_file(self.settings_file))
+        self.__SETTINGS = json.loads(self.filesystem.read_text_file(self.settings_file))
 
     def set_setting(self, param, payload):
-        self.SETTINGS[param] = payload
+        self.__SETTINGS[param] = payload
 
     def get_setting(self, param):
-        if param in self.SETTINGS.keys():
-            return self.SETTINGS[param]
+        if param in self.__SETTINGS.keys():
+            return self.__SETTINGS[param]
         else:
             self.log.write_error(f'Settings not contains param: {param}')
             return False
+
+    def del_setting(self, name):
+        try:
+            del self.__SETTINGS[name]
+            self.log.write_info(f"Setting [{name}] removed")
+        except KeyError:
+            self.log.write_error(f"Key [{name}] not founded in settings!")
