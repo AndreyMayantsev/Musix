@@ -14,7 +14,8 @@ class Log:
     DATE_NOW = datetime.datetime.today().strftime('%Y-%m-%d')
     DEFAULT_FILENAME = "log.log"
 
-    def __init__(self, name):
+    def __init__(self, name, debug=False):
+        self.debug_mode = debug
         self.filesystem = base_filesystem.BaseFilesystem()
         self.system_folders = system_info.get_system_info()
         self.application_data = os.path.join(self.system_folders.USER_HOME, app_config.application['HOME_FOLDER'])
@@ -41,6 +42,10 @@ class Log:
 
     def write_error(self, error):
         self.__write_log(f"ERROR\t{error}")
+
+    def write_debug(self, message):
+        if self.debug_mode:
+            self.__write_log(f"DEBUG\t{message}")
 
     def __write_log(self, logtext):
         time = datetime.datetime.today().strftime('%X')

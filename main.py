@@ -1,12 +1,16 @@
 from baseapp import logging
 from baseapp import app_settings
-
+from wsgi import server
 
 if __name__ == "__main__":
-    log = logging.Log("MAIN")
-    log.write_info("Logging started...")
-    settings = app_settings.Settings()
 
-    settings.set_setting('UserName', 'plafon')
-    settings.set_setting('Passwd', '123ASDQWE123')
-    settings.save_settings()
+    # Activate logging function
+    log = logging.Log("MAIN")
+    log.write_info("Start logging")
+    # Activate settings mechanism
+    settings = app_settings.Settings()
+    # Trying to start web server
+    try:
+        server.run()
+    except Exception as ServerRunError:
+        log.write_error(f"Error caused while service running, {ServerRunError}")
