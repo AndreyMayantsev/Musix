@@ -1,5 +1,6 @@
 from baseapp import logging
 from baseapp import app_settings
+from music_scanner import MusicScanner
 from wsgi import server
 
 if __name__ == "__main__":
@@ -10,6 +11,8 @@ if __name__ == "__main__":
     # Activate settings mechanism
     settings = app_settings.Settings()
     # Trying to start web server
+    music_list = MusicScanner().scan_folder("D:\\musoc\\mp3")
+    print(music_list)
     try:
         server.run()
     except Exception as ServerRunError:

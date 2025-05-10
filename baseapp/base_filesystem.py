@@ -18,6 +18,14 @@ class BaseFilesystem:
                 print(f"Folder does not exists and can't be created! -> {folder} : {error}")
                 return False
 
+    def get_files_list(self, folder, mask=""):
+        _files_list = os.listdir(folder)
+        files_list = []
+        for file in _files_list:
+            if file[-len(mask):] == mask:
+                files_list.append(os.path.join(folder, file))
+        return files_list
+
     def read_text_file(self, file):
         return self.__read_text_file(file)
 
