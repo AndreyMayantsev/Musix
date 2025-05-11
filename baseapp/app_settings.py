@@ -17,7 +17,7 @@ class Settings:
         self.filesystem = base_filesystem.BaseFilesystem()
         self.system = system_info.get_system_info()
         self.settings_folder = os.path.join(self.system.USER_HOME, app_config.application['HOME_FOLDER'])
-        self.filesystem.folder_exists(self.settings_folder)
+        self.filesystem.make_folder_if_not_exists(self.settings_folder)
         self.settings_file = os.path.join(self.settings_folder, '.settings')
         self.load_settings()
 
@@ -26,7 +26,10 @@ class Settings:
         self.filesystem.rewrite_text_file(self.settings_file, json.dumps(self.__SETTINGS))
 
     def load_settings(self):
-        self.__SETTINGS = json.loads(self.filesystem.read_text_file(self.settings_file))
+        try:
+            self.__SETTINGS = json.loads(self.filesystem.read_text_file(self.settings_file))
+        except Exception as err:
+            self.log.write_error(f"Can not load settings. Error: {err}")
 
     def set_setting(self, param, payload):
         self.__SETTINGS[param] = payload

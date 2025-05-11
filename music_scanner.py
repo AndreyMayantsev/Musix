@@ -11,9 +11,10 @@ class MusicScanner:
 
     def scan_folder(self, folder):
         """ Returns music list in json """
-        files_list = self.bfs.get_files_list(folder, mask=".mp3")
+        files_list = self.bfs.get_all_objects_in_folder_list(folder, mask=".mp3")
         tracks_list = {}
         track_id = 0
+
 
         for file in files_list:
             _mt = MusicTrack(file)

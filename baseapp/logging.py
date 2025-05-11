@@ -22,10 +22,10 @@ class Log:
         self.LOG_NAME = name
         self.dir = self.application_data if self.WRITE_IN_HOME_FOLDER else os.path.abspath(os.curdir)
         self.log_dir = os.path.join(self.dir, self.LOG_FOLDER_NAME)
-        if self.filesystem.folder_exists(self.application_data):
-            if self.filesystem.folder_exists(self.log_dir):
+        if self.filesystem.make_folder_if_not_exists(self.application_data):
+            if self.filesystem.make_folder_if_not_exists(self.log_dir):
                 if self.LOG_FOLDER_SEPARATE_BY_DATE:
-                    self.filesystem.folder_exists(os.path.join(self.log_dir, self.DATE_NOW))
+                    self.filesystem.make_folder_if_not_exists(os.path.join(self.log_dir, self.DATE_NOW))
                     self.log_dir = self.log_dir + self.DATE_NOW
 
         self.DEFAULT_FILENAME = "/" + self.LOG_NAME + "-" + self.DATE_NOW + ".log"
@@ -56,4 +56,4 @@ class Log:
     def __actualize_log_folder(self):
         self.DATE_NOW = datetime.datetime.today().strftime('%Y-%m-%d')
         self.log_dir = os.path.join(self.dir, self.LOG_FOLDER_NAME, self.DATE_NOW)
-        self.filesystem.folder_exists(self.log_dir)
+        self.filesystem.make_folder_if_not_exists(self.log_dir)

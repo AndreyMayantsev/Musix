@@ -3,7 +3,7 @@ import os
 
 class BaseFilesystem:
 
-    def folder_exists(self, folder) -> bool:
+    def make_folder_if_not_exists(self, folder) -> bool:
         if os.path.exists(folder):
             return True
         else:
@@ -18,13 +18,28 @@ class BaseFilesystem:
                 print(f"Folder does not exists and can't be created! -> {folder} : {error}")
                 return False
 
-    def get_files_list(self, folder, mask=""):
+    def get_files_in_folder_list(self, folder, mask=""):
         _files_list = os.listdir(folder)
         files_list = []
         for file in _files_list:
             if file[-len(mask):] == mask:
                 files_list.append(os.path.join(folder, file))
         return files_list
+
+    def get_all_objects_in_folder_list(self, folder, mask=""):
+        _objects_list = os.walk(folder)
+        all_files_list = []
+
+        for fs_object in _objects_list:
+
+            for file in fs_object[2]:
+                if file[-len(mask):] == mask:
+                    all_files_list.append(os.path.join(fs_object[0], file))
+
+            for dir in fs_object[1]:
+                print(dir)
+
+        return all_files_list
 
     def read_text_file(self, file):
         return self.__read_text_file(file)
