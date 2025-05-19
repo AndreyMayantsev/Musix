@@ -6,12 +6,16 @@ from wsgi import server
 import json
 
 if __name__ == "__main__":
-
+    home_path = 'D:\\musoc\\mp3'
     # Activate logging function
     log = logging.Log("MAIN")
     log.write_info("Start logging")
     # Activate settings mechanism
     settings = app_settings.Settings()
+    if settings.get_setting('HomePath'):
+        home_path = settings.get_setting('HomePath')
+    else:
+        print(f"Setting HomePath not founded, setting default folder: {home_path} ")
     # Trying to start web server
     music_list = MusicScanner().scan_folder("D:\\musoc\\mp3")
 

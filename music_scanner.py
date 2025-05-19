@@ -1,7 +1,5 @@
-import music_tag
-import os
-from music_track import MusicTrack
 from baseapp import base_filesystem
+from music_track_loader import MusicTrackLoader
 
 
 class MusicScanner:
@@ -15,10 +13,9 @@ class MusicScanner:
         tracks_list = {}
         track_id = 0
 
-
         for file in files_list:
-            _mt = MusicTrack(file)
-            tracks_list[track_id] = _mt.get_track_info()
+            _mtl = MusicTrackLoader(file)
+            tracks_list[track_id] = _mtl.get_track_as_json()
             track_id += 1
 
         return tracks_list
