@@ -15,12 +15,14 @@ if __name__ == "__main__":
     if settings.get_setting('HomePath'):
         home_path = settings.get_setting('HomePath')
     else:
-        print(f"Setting HomePath not founded, setting default folder: {home_path} ")
+        print(f"Setting HomePath not founded, set default folder: {home_path} ")
+        log.write_warning(f"Setting HomePath not founded, set default folder: {home_path} ")
+
     # Trying to start web server
     music_list = MusicScanner().scan_folder("D:\\musoc\\mp3")
 
     log.write_info(f"{len(music_list)} tracks was founded")
-    print(json.dumps(music_list))
+    log.write_info(json.dumps(music_list))
 
     # try:
     #     server.run()
