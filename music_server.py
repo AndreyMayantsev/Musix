@@ -15,3 +15,7 @@ class MusicServer:
 
     def get_track(self, track_id):
         return self.track_list.get(track_id)
+
+    def get_track_path(self, track_id):
+        t = self.get_track(track_id)
+        return t['file']

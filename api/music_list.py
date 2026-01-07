@@ -3,17 +3,12 @@ from dataclasses import dataclass
 from baseapp.system_info import get_system_info
 
 
-@dataclass
 class MusicList:
 
     def __init__(self, music_server):
-        system: str = get_system_info()
-
+        self.system = get_system_info()
+        self.server = music_server
 
     def make_response(self):
-        folder = self.music_server
-        resp = {
-            "home_folder": {folder},
-            "files": {}
-        }
+        resp = self.server.get_track_list()
         return json.dumps(resp)

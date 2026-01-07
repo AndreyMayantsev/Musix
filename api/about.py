@@ -12,7 +12,9 @@ class SystemInfo:
         resp = {
             "OS": self.system.OS_NAME,
             "Host": self.system.HOST_NAME,
-            "user": self.system.USER_NAME
+            "user": self.system.USER_NAME,
+            "user_home": self.system.USER_HOME,
+            "processor": self.system.PROCESSOR_INFO
         }
         return json.dumps(resp)
 
