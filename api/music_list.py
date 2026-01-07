@@ -1,17 +1,17 @@
 import json
-import os
+from dataclasses import dataclass
 from baseapp.system_info import get_system_info
-from baseapp.app_settings import Settings
 
 
-class MusicList():
+@dataclass
+class MusicList:
 
-    def __init__(self):
-        self.system = get_system_info()
-        self.settings = Settings()
+    def __init__(self, music_server):
+        system: str = get_system_info()
+
 
     def make_response(self):
-        folder = self.settings.get_setting('music_folder')
+        folder = self.music_server
         resp = {
             "home_folder": {folder},
             "files": {}

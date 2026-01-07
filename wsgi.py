@@ -1,9 +1,6 @@
 from api import about, music_list
 from flask import Flask
-
-
-# making http server
-server = Flask("Musix")
+from main import music_server, server
 
 
 @server.route("/system")
@@ -13,4 +10,4 @@ def about_system():
 
 @server.route("/build")
 def get_files():
-    return music_list.MusicList().make_response()
+    return music_list.MusicList(music_server).make_response()
