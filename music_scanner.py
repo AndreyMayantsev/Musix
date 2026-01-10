@@ -1,5 +1,6 @@
 from baseapp import base_filesystem
 from uuid import uuid4
+import hashlib
 from music_track_loader import MusicTrackLoader
 
 
@@ -14,8 +15,14 @@ class MusicScanner:
         tracks_list = {}
 
         for file in files_list:
+            # get filepath as string
+            _id_fname = str(file)
+            # hashing for make stable id for files
+            _id = hashlib.sha256(_id_fname.encode('utf-8')).hexdigest()
+            # get track information
             _mtl = MusicTrackLoader(file)
-            tracks_list[str(uuid4())] = _mtl.get_track_as_json()
+            # add track to list with stable id
+            tracks_list[_id] = _mtl.get_track_as_json()
 
         return tracks_list
 

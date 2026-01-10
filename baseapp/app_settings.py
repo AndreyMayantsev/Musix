@@ -11,14 +11,14 @@ class Settings:
 
     __SETTINGS = {}
 
-    def __init__(self):
+    def __init__(self, settings_file=".settings"):
         self.log = logging.Log("Settings")
         self.log.write_info("Starting settings module")
         self.filesystem = base_filesystem.BaseFilesystem()
         self.system_info = system_info.get_system_info()
         self.settings_folder = os.path.join(self.system_info.USER_HOME, app_config.application['HOME_FOLDER'])
         self.filesystem.make_folder_if_not_exists(self.settings_folder)
-        self.settings_file = os.path.join(self.settings_folder, '.settings')
+        self.settings_file = os.path.join(self.settings_folder, settings_file)
         if not os.path.exists(self.settings_file):
             self.filesystem.rewrite_text_file(self.settings_file, '{}')
         self.load_settings()

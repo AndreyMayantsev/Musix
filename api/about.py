@@ -1,4 +1,5 @@
 from baseapp.system_info import get_system_info
+from .composer import ResponseType, compose_response
 import json
 
 
@@ -16,6 +17,6 @@ class SystemInfo:
             "user_home": self.system.USER_HOME,
             "processor": self.system.PROCESSOR_INFO
         }
-        return json.dumps(resp)
+        return compose_response(ResponseType.OK, resp)
 
 

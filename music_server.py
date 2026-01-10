@@ -1,4 +1,8 @@
+import datetime
+import json
+
 from music_scanner import MusicScanner
+from baseapp.app_settings import Settings
 
 
 class MusicServer:
@@ -6,9 +10,16 @@ class MusicServer:
     def __init__(self, music_folder):
         self.folder = music_folder
         self.track_list = MusicScanner().scan_folder(self.folder)
+        self.settings = Settings(settings_file=".music_cache")
+        self.caching()
 
     def update_track_list(self):
         self.track_list = MusicScanner().scan_folder(self.folder)
+
+    def caching(self):
+        self.settings.set_setting('__CACHE_DATE', str(datetime.datetime.now()))
+        self.settings.set_setting('__CACHE_LIST', json.dumps(self.track_list))
+        self.settings.save_settings()
 
     def get_track_list(self):
         return self.track_list
