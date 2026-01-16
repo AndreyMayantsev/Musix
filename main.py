@@ -5,7 +5,8 @@ from baseapp import logging
 from baseapp import app_settings
 from music_server import MusicServer
 from flask import Flask, Response
-from flask_socketio import SocketIO, emit
+from flask_cors import cross_origin, CORS
+
 
 music_folder = 'D:\\musoc\\mp3'
 
@@ -18,6 +19,7 @@ if settings.get_setting('HomePath'):
 music_server = MusicServer(music_folder)
 # Flask run
 http_server = Flask('MU6')
+CORS(http_server)
 
 print("*" * 30)
 print(music_server.get_track_list())

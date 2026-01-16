@@ -1,5 +1,4 @@
 import datetime
-import json
 from enum import Enum
 
 
@@ -10,10 +9,10 @@ class ResponseType(Enum):
     UndefinedError = "error"
 
 
-def compose_response(type: ResponseType, data):
+def compose_response(resp_type: ResponseType, data):
     response = {
-        "type": type.value,
+        "type": resp_type.value,
         "timestamp": datetime.datetime.now(),
-        "data": json.dumps(data)
+        "data": data
     }
     return response

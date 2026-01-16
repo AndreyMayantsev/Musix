@@ -1,4 +1,8 @@
+import json
+
 import music_tag
+import ftfy
+import fix_codepage
 from music_track import MusicTrack
 
 
@@ -27,10 +31,10 @@ class MusicTrackLoader:
     def get_track_as_json(self):
         _json = {
             "file": self.music_track.file_path,
-            "artist": self.music_track.artist,
-            "album": self.music_track.album,
-            "title": self.music_track.title,
-            "bit_rate": self.music_track.bit_rate,
-            "length": self.music_track.length
+            "artist": fix_codepage.fix_track_tag(self.music_track.artist),
+            "album": fix_codepage.fix_track_tag(self.music_track.album),
+            "title": fix_codepage.fix_track_tag(self.music_track.title),
+            "bit_rate": int(self.music_track.bit_rate),
+            "length": float(self.music_track.length)
         }
         return _json
