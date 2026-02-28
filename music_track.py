@@ -16,6 +16,6 @@ class MusicTrack:
             "artist": self.artist,
             "album": self.album,
             "title": self.title,
-            "bit_rate": self.bit_rate,
-            "length": self.length
+            "bitrate": self.bit_rate,
+            "duration": self.length
         }

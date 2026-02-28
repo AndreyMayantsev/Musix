@@ -34,7 +34,7 @@ class MusicTrackLoader:
             "artist": fix_codepage.fix_track_tag(self.music_track.artist),
             "album": fix_codepage.fix_track_tag(self.music_track.album),
             "title": fix_codepage.fix_track_tag(self.music_track.title),
-            "bit_rate": int(self.music_track.bit_rate),
-            "length": float(self.music_track.length)
+            "bitrate": int(self.music_track.bit_rate),
+            "duration": float(self.music_track.length)
         }
         return _json

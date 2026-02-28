@@ -1,10 +1,10 @@
 import json
 import os
-from api import about, music_list
+from api import about, music_list, write_log
 from baseapp import logging
 from baseapp import app_settings
 from music_server import MusicServer
-from flask import Flask, Response
+from flask import Flask, Response, request
 from flask_cors import cross_origin, CORS
 
 
@@ -24,6 +24,15 @@ CORS(http_server)
 print("*" * 30)
 print(music_server.get_track_list())
 print("*" * 30)
+
+log = logging.Log("main")
+
+
+@http_server.route("/writelog", methods=['POST'])
+def write_log():
+    data = request.json
+    log.write_info(data)
+    return "{'received':'ok'}"
 
 
 @http_server.route("/system")
@@ -76,4 +85,4 @@ def root():
     """
 
 
-http_server.run()
+http_server.run(host='0.0.0.0', port=5000)
