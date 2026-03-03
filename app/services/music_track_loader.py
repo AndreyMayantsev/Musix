@@ -2,8 +2,8 @@ import json
 
 import music_tag
 import ftfy
-import fix_codepage
-from music_track import MusicTrack
+from app.baseapp import fix_codepage
+from app.models.music_track import MusicTrack
 
 
 class MusicTrackLoader:

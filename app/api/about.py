@@ -1,4 +1,4 @@
-from baseapp.system_info import get_system_info
+from app.baseapp.system_info import get_system_info
 from .composer import ResponseType, compose_response
 
 

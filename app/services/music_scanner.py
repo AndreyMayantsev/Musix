@@ -1,7 +1,7 @@
-from baseapp import base_filesystem
+from app.baseapp import base_filesystem
 from uuid import uuid4
 import hashlib
-from music_track_loader import MusicTrackLoader
+from app.services.music_track_loader import MusicTrackLoader
 
 
 class MusicScanner:

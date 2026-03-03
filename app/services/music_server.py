@@ -1,8 +1,8 @@
 import datetime
 import json
 
-from music_scanner import MusicScanner
-from baseapp.app_settings import Settings
+from app.services.music_scanner import MusicScanner
+from app.baseapp.app_settings import Settings
 
 
 class MusicServer:
