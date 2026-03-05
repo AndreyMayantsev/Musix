@@ -3,6 +3,7 @@ from .composer import ResponseType, compose_response
 
 
 class WriteLog:
+    # write local log
 
     def __init__(self):
         self.system = get_system_info()

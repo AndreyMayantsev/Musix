@@ -3,6 +3,7 @@ from .composer import ResponseType, compose_response
 
 
 class SystemInfo:
+    # About system
 
     def __init__(self):
         self.system = get_system_info()
