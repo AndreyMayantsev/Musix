@@ -8,7 +8,6 @@ tracks_bp = Blueprint('tracks', __name__)
 
 @tracks_bp.route("/tracklist")
 def get_files():
-
     return MusicList(current_app.music_server).make_response()
 
 

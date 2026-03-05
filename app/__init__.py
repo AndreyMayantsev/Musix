@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import cross_origin, CORS
-from app.tracks.routes import tracks_bp
-from app.system.routes import system_bp
+from app.api.tracks.routes import tracks_bp
+from app.api.system.routes import system_bp
 from app.baseapp import app_settings, logging
 from app.services.music_server import MusicServer
 
@@ -9,7 +9,6 @@ from app.services.music_server import MusicServer
 def create_app():
     # Flask run
     http_server = Flask('MU6')
-
     CORS(http_server)
 
     http_server.register_blueprint(tracks_bp)
