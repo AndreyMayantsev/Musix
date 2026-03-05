@@ -1,7 +1,6 @@
 import json
 
 import music_tag
-import ftfy
 from app.baseapp import fix_codepage
 from app.models.music_track import MusicTrack
 
