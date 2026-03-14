@@ -13,7 +13,7 @@ def get_files():
 
 @tracks_bp.route("/stream/<path:path>")
 def stream_file(path):
-    print(f"LOADING ID: {path}")
+    print(f"..> streaming track: {path}")
     file_path = current_app.music_server.get_track_path(path)
 
     def generate():

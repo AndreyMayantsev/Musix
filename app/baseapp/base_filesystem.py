@@ -36,8 +36,8 @@ class BaseFilesystem:
                 if file[-len(mask):] == mask:
                     all_files_list.append(os.path.join(fs_object[0], file))
 
-            for dir in fs_object[1]:
-                print(dir)
+            # for dir in fs_object[1]:
+            #     print(dir)
 
         return all_files_list
 

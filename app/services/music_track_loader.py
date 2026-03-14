@@ -8,6 +8,7 @@ from app.models.music_track import MusicTrack
 class MusicTrackLoader:
 
     def __init__(self, track_absolute_path: str):
+        print(f"Loading: {track_absolute_path}")
         _f = music_tag.load_file(track_absolute_path)
         # base information about track
         artist: str = self.__check_string_param(_f['artist'])

@@ -7,6 +7,7 @@ from app.services.music_server import MusicServer
 
 
 def create_app():
+
     # Flask run
     http_server = Flask('MU6')
     CORS(http_server)
