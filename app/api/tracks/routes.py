@@ -1,20 +1,34 @@
 import os
-
-from flask import Blueprint, Response, current_app, jsonify
+from fastapi import APIRouter, Request, HTTPException
+from fastapi.responses import StreamingResponse
 from app.api.music_list import MusicList
 
-tracks_bp = Blueprint('tracks', __name__)
+tracks_router = APIRouter()
+
+@tracks_router.get("/tracks")
+async def get_files(request: Request):
+    music_server = request.app.state.music_server
+    return MusicList(music_server).make_response()
 
 
-@tracks_bp.route("/tracklist")
-def get_files():
-    return MusicList(current_app.music_server).make_response()
-
-
-@tracks_bp.route("/stream/<path:path>")
-def stream_file(path):
+@tracks_router.get(
+    "/stream/{path:path}",
+    response_class=StreamingResponse,
+    responses={
+        200: {
+            "content": {"audio/mpeg": {}},
+            "description": "Успешное воспроизведение аудио-трека",
+        }
+    }
+)
+async def stream_file(path: str, request: Request):
     print(f"..> streaming track: {path}")
-    file_path = current_app.music_server.get_track_path(path)
+
+    music_server = request.app.state.music_server
+    file_path = music_server.get_track_path(path)
+
+    if not file_path:
+        raise HTTPException(status_code=404, detail="Track not found! Check ID and try again.")
 
     def generate():
         chunk_size = 1024 * 16
@@ -25,15 +39,12 @@ def stream_file(path):
                     break
                 yield chunk
 
-    # get size
     file_size = os.path.getsize(file_path)
-
-    # get MIME-type
     mime_type = "audio/mpeg"
 
-    # send file
-    response = Response(generate(), mimetype=mime_type)
-    response.headers['Content-Length'] = file_size
-    response.headers['Accept-Ranges'] = 'bytes'
+    headers = {
+        'Content-Length': str(file_size),
+        'Accept-Ranges': 'bytes'
+    }
 
-    return response
+    return StreamingResponse(generate(), media_type=mime_type, headers=headers)

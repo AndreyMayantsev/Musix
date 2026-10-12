@@ -29,4 +29,7 @@ class MusicServer:
 
     def get_track_path(self, track_id):
         t = self.get_track(track_id)
-        return t['file']
+        try:
+            return t['file']
+        except (KeyError, TypeError):
+            return None
