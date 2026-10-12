@@ -1,11 +1,14 @@
 import os
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import StreamingResponse
+
+from app.api.composer import BaseResponse
 from app.api.music_list import MusicList
+from app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
 
-@tracks_router.get("/tracks")
+@tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
 async def get_files(request: Request):
     music_server = request.app.state.music_server
     return MusicList(music_server).make_response()
@@ -26,6 +29,7 @@ async def stream_file(path: str, request: Request):
 
     music_server = request.app.state.music_server
     file_path = music_server.get_track_path(path)
+    print(file_path)
 
     if not file_path:
         raise HTTPException(status_code=404, detail="Track not found! Check ID and try again.")

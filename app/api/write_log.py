@@ -1,5 +1,4 @@
 from app.baseapp.system_info import get_system_info
-from .composer import ResponseType, compose_response
 
 
 class WriteLog:
@@ -13,4 +12,4 @@ class WriteLog:
         resp = {
             "writing": "ok"
         }
-        return compose_response(ResponseType.OK, resp)
+        return resp

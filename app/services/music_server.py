@@ -12,13 +12,14 @@ class MusicServer:
         self.track_list = MusicScanner().scan_folder(self.folder)
         self.settings = Settings(settings_file=".music_cache")
         self.caching()
+        print(self.track_list)
 
     def update_track_list(self):
         self.track_list = MusicScanner().scan_folder(self.folder)
 
     def caching(self):
         self.settings.set_setting('__CACHE_DATE', str(datetime.datetime.now()))
-        self.settings.set_setting('__CACHE_LIST', json.dumps(self.track_list))
+        # self.settings.set_setting('__CACHE_LIST', json.dumps(self.track_list))
         self.settings.save_settings()
 
     def get_track_list(self):
@@ -29,7 +30,8 @@ class MusicServer:
 
     def get_track_path(self, track_id):
         t = self.get_track(track_id)
+        print(t)
         try:
-            return t['file']
+            return t.file
         except (KeyError, TypeError):
             return None

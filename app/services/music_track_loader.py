@@ -1,7 +1,7 @@
-import json
+import os
 
 import music_tag
-from app.baseapp import fix_codepage
+
 from app.models.music_track import MusicTrack
 
 
@@ -10,31 +10,23 @@ class MusicTrackLoader:
     def __init__(self, track_absolute_path: str):
         print(f"Loading: {track_absolute_path}")
         _f = music_tag.load_file(track_absolute_path)
-        # base information about track
-        artist: str = self.__check_string_param(_f['artist'])
-        album: str = self.__check_string_param(_f['album'])
-        title: str = self.__check_string_param(_f['title'])
-        # technical details (const)
-        bit_rate: str = self.__check_string_param(_f['#bitrate'])
-        length = self.__check_string_param(_f['#length'])
-        self.music_track = MusicTrack(track_absolute_path, artist, album, title, bit_rate, length)
 
-    def __check_string_param(self, param):
-        if param:
-            return str(param)
-        else:
-            return "Unknown"
+        # Получаем значения из тегов (если тега нет, music_tag обычно возвращает пустой объект или None,
+        # поэтому приводим к строке или используем метод .value)
+        artist = str(_f['artist']) or "Unknown Artist"
+        album = str(_f['album']) or "Unknown Album"
+        title = str(_f['title']) or os.path.basename(track_absolute_path)
 
-    def get_track(self):
-        return self.music_track
+        # Технические детали
+        bit_rate = _f['#bitrate']
+        length = _f['#length']
 
-    def get_track_as_json(self):
-        _json = {
-            "file": self.music_track.file_path,
-            "artist": fix_codepage.fix_track_tag(self.music_track.artist),
-            "album": fix_codepage.fix_track_tag(self.music_track.album),
-            "title": fix_codepage.fix_track_tag(self.music_track.title),
-            "bitrate": int(self.music_track.bit_rate),
-            "duration": float(self.music_track.length)
-        }
-        return _json
+        # Создаем Pydantic-модель. Она автоматически все провалидирует!
+        self.music_track = MusicTrack(
+            file=track_absolute_path,
+            artist=artist,
+            album=album,
+            title=title,
+            bitrate=bit_rate,
+            duration=length
+        )

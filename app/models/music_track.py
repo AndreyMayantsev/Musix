@@ -1,21 +1,26 @@
-from dataclasses import dataclass
+from pydantic import BaseModel, Field, field_validator
 
 
-@dataclass
-class MusicTrack:
-    file_path: str
-    artist: str
-    album: str
-    title: str
-    bit_rate: int
-    length: int
+class MusicTrack(BaseModel):
+    file: str = Field(description="Полный путь к файлу")
+    artist: str = Field(description="Исполнитель")
+    album: str = Field(description="Альбом")
+    title: str = Field(description="Название трека")
+    bitrate: int = Field(description="Битрейт в bps")
+    duration: float = Field(description="Длительность в секундах")
 
-    def get_track_info(self):
-        return {
-            "file": self.file_path,
-            "artist": self.artist,
-            "album": self.album,
-            "title": self.title,
-            "bitrate": self.bit_rate,
-            "duration": self.length
-        }
+    # Валидатор: если битрейт или длительность пришли строкой, 
+    # Pydantic сам попытается их сконвертировать, но мы можем подстраховаться
+    @field_validator('bitrate', mode='before')
+    def clean_bitrate(cls, v):
+        if isinstance(v, str):
+            # Убираем пробелы или kbps, если они есть, и берем только цифры
+            v = ''.join(filter(str.isdigit, v))
+        return int(v) if v else 0
+
+    @field_validator('duration', mode='before')
+    def clean_duration(cls, v):
+        try:
+            return float(v)
+        except (ValueError, TypeError):
+            return 0.0

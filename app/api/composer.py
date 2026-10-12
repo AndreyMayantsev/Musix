@@ -1,6 +1,7 @@
 import datetime
 from enum import Enum
-
+from typing import Generic, TypeVar, Any
+from pydantic import BaseModel, Field
 
 class ResponseType(Enum):
     OK = "success"
@@ -8,11 +9,10 @@ class ResponseType(Enum):
     NetworkError = "error"
     UndefinedError = "error"
 
+T = TypeVar('T')
 
-def compose_response(resp_type: ResponseType, data):
-    response = {
-        "type": resp_type.value,
-        "timestamp": datetime.datetime.now(),
-        "data": data
-    }
-    return response
+class BaseResponse(BaseModel, Generic[T]):
+    type: ResponseType = ResponseType.OK
+    # По умолчанию автоматически подставится текущее время UTC
+    timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
+    data: T

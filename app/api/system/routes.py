@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Response, HTTPException
 from app.api.about import SystemInfo
+from app.api.composer import BaseResponse
 
 system_router = APIRouter()
 
-@system_router.get("/system")
+@system_router.get("/system", response_model=BaseResponse[dict])
 def about_system():
     return SystemInfo().make_response()
 

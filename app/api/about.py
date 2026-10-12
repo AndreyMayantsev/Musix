@@ -1,5 +1,4 @@
 from app.baseapp.system_info import get_system_info
-from .composer import ResponseType, compose_response
 
 
 class SystemInfo:
@@ -17,6 +16,6 @@ class SystemInfo:
             "user_home": self.system.USER_HOME,
             "processor": self.system.PROCESSOR_INFO
         }
-        return compose_response(ResponseType.OK, resp)
+        return resp
 
 
