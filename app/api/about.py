@@ -16,6 +16,6 @@ class SystemInfo:
             "user_home": self.system.USER_HOME,
             "processor": self.system.PROCESSOR_INFO
         }
-        return resp
+        return {"data": resp}
 
 

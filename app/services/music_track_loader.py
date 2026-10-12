@@ -8,7 +8,7 @@ from app.models.music_track import MusicTrack
 class MusicTrackLoader:
 
     def __init__(self, track_absolute_path: str):
-        print(f"Loading: {track_absolute_path}")
+        print(f"[] -> Loading: {track_absolute_path}")
         _f = music_tag.load_file(track_absolute_path)
 
         # Получаем значения из тегов (если тега нет, music_tag обычно возвращает пустой объект или None,

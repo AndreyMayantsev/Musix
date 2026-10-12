@@ -12,4 +12,4 @@ class WriteLog:
         resp = {
             "writing": "ok"
         }
-        return resp
+        return {"data": resp}

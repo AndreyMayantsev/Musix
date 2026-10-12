@@ -9,6 +9,6 @@ class MusicList:
             resp = self.server.get_track_list()
             return {"data": resp}
         except SystemError as error:
-            return error
+            return {"data": error}
         except Exception as error:
-            return error
+            return {"data": error}
