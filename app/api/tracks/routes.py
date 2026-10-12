@@ -25,11 +25,10 @@ async def get_files(request: Request):
     }
 )
 async def stream_file(path: str, request: Request):
-    print(f"..> streaming track: {path}")
+    print(f"\t=> streaming track: {path}")
 
     music_server = request.app.state.music_server
     file_path = music_server.get_track_path(path)
-    print(file_path)
 
     if not file_path:
         raise HTTPException(status_code=404, detail="Track not found! Check ID and try again.")

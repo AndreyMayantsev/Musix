@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Generic, TypeVar, Dict
 from pydantic import BaseModel, Field, field_validator
 
+
 # 1. Типы ответов
 class ResponseType(Enum):
     OK = "success"
@@ -10,14 +11,17 @@ class ResponseType(Enum):
     NetworkError = "error"
     UndefinedError = "error"
 
+
 # 2. Переменная для Generic (чтобы подставлять любые данные в data)
 T = TypeVar('T')
+
 
 # 3. Общая обертка для ВСЕХ ответов вашего API
 class BaseResponse(BaseModel, Generic[T]):
     type: ResponseType = ResponseType.OK
     timestamp: datetime.datetime = Field(default_factory=datetime.datetime.now)
     data: T
+
 
 # 4. Структура одного музыкального трека
 class TrackInfo(BaseModel):
@@ -40,6 +44,7 @@ class TrackInfo(BaseModel):
             return float(v)
         except (ValueError, TypeError):
             return 0.0
+
 
 # 5. Тот самый алиас (псевдоним) типа для вашего списка треков
 # Он говорит: "MusicListData — это словарь, где ключ строка, а значение — модель TrackInfo"

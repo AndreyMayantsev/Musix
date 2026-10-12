@@ -9,7 +9,7 @@ Use 'uvicorn main:app --reload' to local run
 """
 
 app = FastAPI()
-app.state.music_server = MusicServer("D:\\mp3\\mp3")
+app.state.music_server = MusicServer("F:\\БАКАПЫ\\musoc")
 app.settings = Settings()
 
 app.include_router(tracks_router)
