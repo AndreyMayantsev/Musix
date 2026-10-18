@@ -8,6 +8,7 @@ from app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
 
+
 @tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
 async def get_files(request: Request):
     music_server = request.app.state.music_server
@@ -25,7 +26,6 @@ async def get_files(request: Request):
     }
 )
 async def stream_file(path: str, request: Request):
-    print(f"\t=> streaming track: {path}")
 
     music_server = request.app.state.music_server
     file_path = music_server.get_track_path(path)

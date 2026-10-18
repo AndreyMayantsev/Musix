@@ -16,6 +16,5 @@ T = TypeVar('T')
 
 class BaseResponse(BaseModel, Generic[T]):
     type: ResponseType = ResponseType.OK
-    # По умолчанию автоматически подставится текущее время UTC
     timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
     data: T
