@@ -3,7 +3,7 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import StreamingResponse
 
 from app.api.composer import BaseResponse
-from app.api.music_list import MusicList
+from app.services.music_list import MusicList
 from app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
