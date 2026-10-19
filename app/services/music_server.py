@@ -1,4 +1,6 @@
 import datetime
+import os.path
+
 from app.services.music_scanner import MusicScanner
 from app.baseapp.app_settings import Settings
 
@@ -6,7 +8,9 @@ from app.baseapp.app_settings import Settings
 class MusicServer:
 
     def __init__(self, music_folder):
-        self.folder = music_folder
+        self.folder = os.path.join(music_folder)
+        if not os.path.exists(self.folder):
+            raise FileNotFoundError(f"DIRECTORY_NOT_FOUND: {self.folder}\nPlease check your settings in ~/.Musix")
         self.track_list = MusicScanner().scan_folder(self.folder)
         self.settings = Settings(settings_file=".music_cache")
         self.caching()

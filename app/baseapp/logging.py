@@ -48,6 +48,8 @@ class Log:
             self.__write_log(f"DEBUG\t{message}")
 
     def __write_log(self, logtext):
+        if self.debug_mode:
+            print(f">>> DEBUG: {logtext}")
         time = datetime.datetime.today().strftime('%X')
         if self.LOG_FOLDER_SEPARATE_BY_DATE:
             self.__actualize_log_folder()

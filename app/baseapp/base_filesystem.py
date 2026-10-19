@@ -36,9 +36,6 @@ class BaseFilesystem:
                 if file[-len(mask):] == mask:
                     all_files_list.append(os.path.join(fs_object[0], file))
 
-            # for dir in fs_object[1]:
-            #     print(dir)
-
         return all_files_list
 
     def read_text_file(self, file):
@@ -53,7 +50,7 @@ class BaseFilesystem:
     def __write_text_file(self, file, data, type="append"):
         write_type = "a" if type == "append" else "w"
         try:
-            raw = open(file, write_type)
+            raw = open(file, write_type, encoding='utf-8')
             raw.write(data)
             raw.close()
         except PermissionError:
@@ -63,7 +60,7 @@ class BaseFilesystem:
 
     def __read_text_file(self, file):
         try:
-            raw = open(file, 'r')
+            raw = open(file, 'r', encoding='utf-8')
             data = raw.read()
             raw.close()
             return data

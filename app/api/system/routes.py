@@ -23,5 +23,4 @@ def get_favicon():
 @system_router.post("/register_app", response_model=BaseResponse)
 def register_app(app: AppInfo):
     _apps_store[app.id] = app
-    print(_apps_store)
     return {"data": {"reg_status": True, "app": app.id }}

@@ -49,3 +49,6 @@ class Settings:
             self.log.write_info(f"Setting [{name}] removed")
         except KeyError:
             self.log.write_error(f"Key [{name}] not founded in settings!")
+
+    def __str__(self):
+        return str(self.__SETTINGS)
