@@ -1,14 +1,17 @@
+import logging
 import os
 
 import music_tag
 
 from app.models.music_track import MusicTrack
 
+log = logging.getLogger("musix.loader")
+
 
 class MusicTrackLoader:
 
     def __init__(self, track_absolute_path: str):
-        print(f"[] -> Loading: {track_absolute_path}")
+        log.info(f"Loading: {track_absolute_path}")
         _f = music_tag.load_file(track_absolute_path)
 
         # Получаем значения из тегов (если тега нет, music_tag обычно возвращает пустой объект или None,

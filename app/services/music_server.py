@@ -1,8 +1,11 @@
 import datetime
+import logging
 import os.path
 
 from app.services.music_scanner import MusicScanner
 from app.baseapp.app_settings import Settings
+
+log = logging.getLogger("musix.server")
 
 
 class MusicServer:
@@ -11,12 +14,15 @@ class MusicServer:
         self.folder = os.path.join(music_folder)
         if not os.path.exists(self.folder):
             raise FileNotFoundError(f"DIRECTORY_NOT_FOUND: {self.folder}\nPlease check your settings in ~/.Musix")
+        log.info(f"Scanning music folder: {self.folder}")
         self.track_list = MusicScanner().scan_folder(self.folder)
+        log.info(f"Scan complete: {len(self.track_list)} tracks found")
         self.settings = Settings(settings_file=".music_cache")
         self.caching()
 
     def update_track_list(self):
         self.track_list = MusicScanner().scan_folder(self.folder)
+        log.info(f"Track list updated: {len(self.track_list)} tracks")
 
     def caching(self):
         self.settings.set_setting('__CACHE_DATE', str(datetime.datetime.now()))

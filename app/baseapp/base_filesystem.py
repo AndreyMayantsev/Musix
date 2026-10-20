@@ -1,4 +1,7 @@
+import logging
 import os
+
+log = logging.getLogger("musix.fs")
 
 
 class BaseFilesystem:
@@ -8,14 +11,14 @@ class BaseFilesystem:
             return True
         else:
             try:
-                print(f'Create {folder} folder')
+                log.debug(f'Create {folder} folder')
                 os.mkdir(folder)
                 return True
             except PermissionError:
-                print(f"Folder does not exists and can't be created! -> {folder} : Permission Denied!")
+                log.error(f"Folder does not exists and can't be created! -> {folder} : Permission Denied!")
                 return False
             except Exception as error:
-                print(f"Folder does not exists and can't be created! -> {folder} : {error}")
+                log.error(f"Folder does not exists and can't be created! -> {folder} : {error}")
                 return False
 
     def get_files_in_folder_list(self, folder, mask=""):
