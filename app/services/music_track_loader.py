@@ -1,8 +1,8 @@
 import logging
 import os
-
 import music_tag
 
+from app.baseapp.fix_codepage import fix_track_tag
 from app.models.music_track import MusicTrack
 
 log = logging.getLogger("musix.loader")
@@ -16,9 +16,9 @@ class MusicTrackLoader:
 
         # Получаем значения из тегов (если тега нет, music_tag обычно возвращает пустой объект или None,
         # поэтому приводим к строке или используем метод .value)
-        artist = str(_f['artist']) or "Unknown Artist"
-        album = str(_f['album']) or "Unknown Album"
-        title = str(_f['title']) or os.path.basename(track_absolute_path)
+        artist = fix_track_tag(str(_f['artist'])) or "Unknown Artist"
+        album = fix_track_tag(str(_f['album'])) or "Unknown Album"
+        title = fix_track_tag(str(_f['title'])) or os.path.basename(track_absolute_path)
 
         # Технические детали
         bit_rate = _f['#bitrate']
