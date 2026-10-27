@@ -19,17 +19,17 @@ class MusicService:
         log.info(f"Scanning music folder: {self.folder}")
         self.track_list = MusicScanner().scan_folder(self.folder)
         execution_time = round((time.time() - begin_time), 3)
-        log.info(f"Scan complete: {len(self.track_list)} tracks found. Operation has complete in: { execution_time } sec.")
-        self.settings = Settings(settings_file=".music_cache")
-        self.caching()
+        log.info(f"Scan complete: {len(self.track_list)} tracks founded. Operation has complete in: { execution_time } sec.")
+        # self.settings = Settings(settings_file=".music_cache")
+        # self.caching()
 
     def update_track_list(self):
         self.track_list = MusicScanner().scan_folder(self.folder)
         log.info(f"Track list updated: {len(self.track_list)} tracks")
 
-    def caching(self):
-        self.settings.set_setting('__CACHE_DATE', str(datetime.datetime.now()))
-        self.settings.save_settings()
+    # def caching(self):
+    #     self.settings.set_setting('__CACHE_DATE', str(datetime.datetime.now()))
+    #     self.settings.save_settings()
 
     def get_track_list(self):
         return self.track_list
