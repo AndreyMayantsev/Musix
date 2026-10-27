@@ -1,6 +1,5 @@
-from fastapi import APIRouter
 from pydantic import BaseModel, Field
-from typing import Dict, Optional
+from typing import Dict
 import uuid
 
 

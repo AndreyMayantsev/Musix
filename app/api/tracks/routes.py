@@ -1,18 +1,15 @@
 import os
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import StreamingResponse
-
 from app.api.composer import BaseResponse
-from app.services.music_list import MusicList
 from app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
 
-
 @tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
 async def get_files(request: Request):
-    music_server = request.app.state.music_server
-    return MusicList(music_server).make_response()
+    """ Get all tracks list """
+    return { "data": request.app.state.music_server.get_track_list() }
 
 
 @tracks_router.get(
@@ -26,7 +23,7 @@ async def get_files(request: Request):
     }
 )
 async def stream_file(path: str, request: Request):
-
+    """ Start streaming track """
     music_server = request.app.state.music_server
     file_path = music_server.get_track_path(path)
 

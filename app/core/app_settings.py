@@ -2,9 +2,7 @@ import logging
 import os.path
 import json
 
-from . import base_filesystem
-from . import system_info
-from . import app_config
+from app.core import base_filesystem, app_config, system_info
 
 log = logging.getLogger("musix.settings")
 

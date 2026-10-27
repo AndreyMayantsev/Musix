@@ -1,5 +1,5 @@
-from app.baseapp import base_filesystem
-from app.services.music_track_loader import MusicTrackLoader
+from app.core import base_filesystem
+from app.core.music_track_loader import MusicTrackLoader
 # Импортируем наш алиас типа из предыдущего шага для аннотации
 from app.schemas.music import MusicListData
 
@@ -17,8 +17,6 @@ class MusicScanner:
 
         for file in files_list:
             _mtl = MusicTrackLoader(file)
-
-            # Сохраняем саму Pydantic-модель целиком! Никаких конвертаций в строку.
             tracks_list[_id_num] = _mtl.music_track
             _id_num += 1
 

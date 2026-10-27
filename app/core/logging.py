@@ -1,8 +1,6 @@
 import os
 import datetime
-from . import system_info
-from . import app_config
-from . import base_filesystem
+from app.core import base_filesystem, app_config, system_info
 
 
 class Log:

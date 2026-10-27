@@ -1,4 +1,4 @@
-from app.baseapp.system_info import get_system_info
+from app.core.system_info import get_system_info
 
 
 class SystemInfo:
@@ -13,9 +13,6 @@ class SystemInfo:
             "OS": self.system.OS_NAME,
             "Host": self.system.HOST_NAME,
             "user": self.system.USER_NAME,
-            "user_home": self.system.USER_HOME,
             "processor": self.system.PROCESSOR_INFO
         }
         return {"data": resp}
-
-
