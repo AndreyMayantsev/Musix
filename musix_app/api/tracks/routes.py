@@ -30,7 +30,7 @@ async def stream_file(path: str, request: Request, server: AppServer = Depends(g
     """
     Start streaming track
     """
-    music_server = request.app.state.music_server
+    music_server = server.music_service
     file_path = music_server.get_track_path(path)
 
     if not file_path:

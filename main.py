@@ -20,16 +20,8 @@ from musix_app.api.system.routes import system_router
 """
 Use 'uvicorn main:app --reload' to local run 
 """
+# --- Make FastAPI ---
 app = FastAPI()
-app.state
-server_instance = AppServer(
-    music_service=MusicService(),
-    app_service=AppService(),
-    system_service=SystemService(),
-    app_settings=Settings()
-)
-
-app.state.app_server = server_instance
 
 # --- include routes ---
 app.include_router(tracks_router)
