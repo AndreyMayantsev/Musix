@@ -1,10 +1,9 @@
-import datetime
 import logging
 import os.path
 import time
 
 from musix_app.core.music_scanner import MusicScanner
-from musix_app.core.app_settings import Settings
+
 
 log = logging.getLogger("musix.server")
 

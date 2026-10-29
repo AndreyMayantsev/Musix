@@ -1,24 +1,25 @@
+import logging
+
 from pydantic import BaseModel, Field
-from typing import Dict
-import uuid
+
+log = logging.getLogger("musix.app_service")
 
 
 class AppInfo(BaseModel):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    id: str
     name: str
     info: str
-
-
-class BaseResponse(BaseModel):
-    reg_status: bool
-    app: AppInfo
-
-
-# Хранилище в памяти: ключ — UUID приложения
-_apps_store: Dict[uuid.UUID, AppInfo] = {}
 
 
 class AppService:
 
     def __init__(self):
-        print("AppService")
+        self.registered_apps = {}
+
+    def register_app(self, app_id: str, app_info: str):
+        self.registered_apps[app_id] = app_info
+
+    def get_registered_app(self, app_id: str):
+        if app_id not in self.registered_apps:
+            log.error(f" >>> Unknown app {app_id}, apps: {self.registered_apps}")
+        return self.registered_apps.get(app_id)
