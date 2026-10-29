@@ -2,32 +2,34 @@ import logging
 
 from fastapi import FastAPI
 
-from app.core.logger import setup_logging
+from musix_app.app_server import AppServer
+from musix_app.core.logger import setup_logging
+from musix_app.services.apps_service import AppService
+from musix_app.services.system_service import SystemService
+from musix_app.core.app_settings import Settings
+from musix_app.services.music_service import MusicService
 
 # --- initialize logging first ---
 setup_logging()
 logger = logging.getLogger("musix")
 
-from app.api.tracks.routes import tracks_router
-from app.api.system.routes import system_router
-from app.core.app_settings import Settings
-from app.services.music_service import MusicService
+from musix_app.api.tracks.routes import tracks_router
+from musix_app.api.system.routes import system_router
+
 
 """
 Use 'uvicorn main:app --reload' to local run 
 """
-
-# --- initialize ---
 app = FastAPI()
-app.settings = Settings()
-app.state.logger = logger
-logger.info(f"Settings: {app.settings}")
+app.state
+server_instance = AppServer(
+    music_service=MusicService(),
+    app_service=AppService(),
+    system_service=SystemService(),
+    app_settings=Settings()
+)
 
-# --- Loading server ---
-_home_path = app.settings.get_setting("HomePath")
-home_path = _home_path if _home_path else "D:\\mp3\\mp3"
-logger.info(f"Set HOMEPATH to: {home_path}")
-app.state.music_server = MusicService(home_path)
+app.state.app_server = server_instance
 
 # --- include routes ---
 app.include_router(tracks_router)

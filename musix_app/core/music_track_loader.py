@@ -2,8 +2,8 @@ import logging
 import os
 import music_tag
 
-from app.core.fix_codepage import fix_track_tag
-from app.models.music_track import MusicTrack
+from musix_app.core.fix_codepage import fix_track_tag
+from musix_app.models.music_track import MusicTrack
 
 log = logging.getLogger("musix.loader")
 

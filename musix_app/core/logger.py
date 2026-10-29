@@ -2,8 +2,8 @@ import logging
 import logging.config
 import os
 
-from app.core import app_config
-from app.core.system_info import get_system_info
+from musix_app.core import app_config
+from musix_app.core.system_info import get_system_info
 
 LOG_FOLDER_NAME = "LOGS"
 LOG_FILE_NAME = "musix.log"

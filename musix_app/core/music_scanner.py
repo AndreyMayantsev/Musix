@@ -1,7 +1,7 @@
-from app.core import base_filesystem
-from app.core.music_track_loader import MusicTrackLoader
+from musix_app.core import base_filesystem
+from musix_app.core.music_track_loader import MusicTrackLoader
 # Импортируем наш алиас типа из предыдущего шага для аннотации
-from app.schemas.music import MusicListData
+from musix_app.schemas.music import MusicListData
 
 
 class MusicScanner:

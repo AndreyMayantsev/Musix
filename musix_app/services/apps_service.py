@@ -16,3 +16,9 @@ class BaseResponse(BaseModel):
 
 # Хранилище в памяти: ключ — UUID приложения
 _apps_store: Dict[uuid.UUID, AppInfo] = {}
+
+
+class AppService:
+
+    def __init__(self):
+        print("AppService")

@@ -1,15 +1,19 @@
 import os
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Depends
 from fastapi.responses import StreamingResponse
-from app.api.composer import BaseResponse
-from app.schemas.music import MusicListData
+from musix_app.api.composer import BaseResponse
+from musix_app.app_server import AppServer
+from musix_app.dependencies import get_server
+from musix_app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
 
 @tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
-async def get_files(request: Request):
-    """ Get all tracks list """
-    return { "data": request.app.state.music_server.get_track_list() }
+async def get_files(server: AppServer = Depends(get_server)):
+    """
+    Get all tracks list
+    """
+    return { "data": server.music_service.get_track_list() }
 
 
 @tracks_router.get(
@@ -18,12 +22,14 @@ async def get_files(request: Request):
     responses={
         200: {
             "content": {"audio/mpeg": {}},
-            "description": "Успешное воспроизведение аудио-трека",
+            "description": "Playing audio track",
         }
     }
 )
-async def stream_file(path: str, request: Request):
-    """ Start streaming track """
+async def stream_file(path: str, request: Request, server: AppServer = Depends(get_server)):
+    """
+    Start streaming track
+    """
     music_server = request.app.state.music_server
     file_path = music_server.get_track_path(path)
 

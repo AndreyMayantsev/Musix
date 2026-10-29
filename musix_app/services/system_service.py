@@ -1,7 +1,7 @@
-from app.core.system_info import get_system_info
+from musix_app.core.system_info import get_system_info
 
 
-class SystemInfo:
+class SystemService:
     # About system
 
     def __init__(self):
