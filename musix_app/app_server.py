@@ -9,6 +9,8 @@ from musix_app.services.system_service import SystemService
 
 class AppServer:
 
+    server_counter = 0
+
     def __init__(
             self,
             music_service: MusicService,
@@ -16,6 +18,7 @@ class AppServer:
             system_service: SystemService,
             app_settings: Settings
     ):
+        self.server_counter += 1
         setup_logging()
         self.logger = logging.getLogger("server")
         self.app_settings = app_settings
@@ -24,6 +27,7 @@ class AppServer:
         self.music_service.set_music_folder(self.home_path)
         self.app_service = app_service
         self.system_service = system_service
+        self.logger.info(f"AppServer init [{self.server_counter}]")
 
     def __load_settings_home_path(self):
         _home_path = self.app_settings.get_setting("HomePath")
