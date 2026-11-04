@@ -5,7 +5,7 @@ import music_tag
 from musix_app.core.fix_codepage import fix_track_tag
 from musix_app.models.music_track import MusicTrack
 
-log = logging.getLogger("musix.loader")
+log = logging.getLogger("mu6.loader")
 
 
 class MusicTrackLoader:

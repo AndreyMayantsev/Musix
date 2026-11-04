@@ -35,6 +35,7 @@ def register_app(app: AppInfo, server: AppServer = Depends(get_server)):
     server.app_service.register_app(app.id, app.info)
     return {"data": {"reg_status": True, "app": app.id }}
 
+
 @system_router.get("/apps/{path:path}", response_model=BaseResponse)
 def register_app(path, server: AppServer = Depends(get_server)):
     """

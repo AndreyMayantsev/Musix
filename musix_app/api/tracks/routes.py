@@ -8,6 +8,7 @@ from musix_app.schemas.music import MusicListData
 
 tracks_router = APIRouter()
 
+
 @tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
 async def get_files(server: AppServer = Depends(get_server)):
     """

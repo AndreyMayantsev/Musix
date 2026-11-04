@@ -20,7 +20,7 @@ class AppServer:
     ):
         self.server_counter += 1
         setup_logging()
-        self.logger = logging.getLogger("server")
+        self.logger = logging.getLogger("mu6.app.server")
         self.app_settings = app_settings
         self.home_path = self.__load_settings_home_path()
         self.music_service = music_service
@@ -31,5 +31,5 @@ class AppServer:
 
     def __load_settings_home_path(self):
         _home_path = self.app_settings.get_setting("HomePath")
-        home_path = _home_path if _home_path else "D:\\mp3\\mp3"
+        home_path = _home_path if _home_path else "F:\\MUSIC"
         return home_path

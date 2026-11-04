@@ -5,7 +5,7 @@ import time
 from musix_app.core.music_scanner import MusicScanner
 
 
-log = logging.getLogger("musix.server")
+log = logging.getLogger("music.service")
 
 
 class MusicService:

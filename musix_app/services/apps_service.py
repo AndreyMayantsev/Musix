@@ -2,7 +2,7 @@ import logging
 
 from pydantic import BaseModel, Field
 
-log = logging.getLogger("musix.app_service")
+log = logging.getLogger("app.service")
 
 
 class AppInfo(BaseModel):
