@@ -2,7 +2,6 @@ from musix_app.core.system_info import get_system_info
 
 
 class SystemService:
-    # About system
 
     def __init__(self):
         self.system = get_system_info()
