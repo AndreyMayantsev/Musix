@@ -14,7 +14,7 @@ async def get_files(server: AppServer = Depends(get_server)):
     """
     Get all tracks list
     """
-    return { "data": server.music_service.get_track_list() }
+    return { "data": server.music_service.get_flat_track_list() }
 
 
 @tracks_router.get(
