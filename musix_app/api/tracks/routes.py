@@ -1,20 +1,22 @@
 import os
 from fastapi import APIRouter, Request, HTTPException, Depends
 from fastapi.responses import StreamingResponse
+from multipart import file_path
+
 from musix_app.api.composer import BaseResponse
 from musix_app.app_server import AppServer
 from musix_app.dependencies import get_server
-from musix_app.schemas.music import MusicListData
+from musix_app.models.models import MusicTrackPublic
 
 tracks_router = APIRouter()
 
 
-@tracks_router.get("/tracks", response_model=BaseResponse[MusicListData])
+@tracks_router.get("/tracks", response_model=BaseResponse[list[MusicTrackPublic]])
 async def get_files(server: AppServer = Depends(get_server)):
     """
     Get all tracks list
     """
-    return { "data": server.music_service.get_flat_track_list() }
+    return { "data": server.database_service.get_all_tracks() }
 
 
 @tracks_router.get(
@@ -31,11 +33,12 @@ async def stream_file(path: str, request: Request, server: AppServer = Depends(g
     """
     Start streaming track
     """
-    music_server = server.music_service
-    file_path = music_server.get_track_path(path)
+    track = server.database_service.get_track(path)
 
-    if not file_path:
+    if not track:
         raise HTTPException(status_code=404, detail="Track not found! Check ID and try again.")
+
+    file_path = track.file
 
     def generate():
         chunk_size = 1024 * 16

@@ -1,0 +1,20 @@
+import datetime
+from enum import Enum
+from typing import Generic, TypeVar, Dict
+from pydantic import BaseModel, Field
+
+
+class ResponseType(Enum):
+    OK = "success"
+    SystemError = "error"
+    NetworkError = "error"
+    UndefinedError = "error"
+
+
+T = TypeVar('T')
+
+
+class BaseResponse(BaseModel, Generic[T]):
+    type: ResponseType = ResponseType.OK
+    timestamp: datetime.datetime = Field(default_factory=datetime.datetime.now)
+    data: T

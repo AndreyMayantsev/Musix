@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, field_validator
 
 
-class MusicTrack(BaseModel):
+class MusicTrackSchema(BaseModel):
     file: str = Field(description="Полный путь к файлу")
     artist: str = Field(description="Исполнитель")
     album: str = Field(description="Альбом")
@@ -9,12 +9,9 @@ class MusicTrack(BaseModel):
     bitrate: int = Field(description="Битрейт в bps")
     duration: float = Field(description="Длительность в секундах")
 
-    # Валидатор: если битрейт или длительность пришли строкой, 
-    # Pydantic сам попытается их сконвертировать, но мы можем подстраховаться
     @field_validator('bitrate', mode='before')
     def clean_bitrate(cls, v):
         if isinstance(v, str):
-            # Убираем пробелы или kbps, если они есть, и берем только цифры
             v = ''.join(filter(str.isdigit, v))
         return int(v) if v else 0
 

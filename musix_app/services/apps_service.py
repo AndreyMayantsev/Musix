@@ -1,8 +1,8 @@
-import logging
-
+from musix_app.core.logger import get_logger
 from pydantic import BaseModel, Field
 
-log = logging.getLogger("app.service")
+
+log = get_logger("mu6.appservice")
 
 
 class AppInfo(BaseModel):
