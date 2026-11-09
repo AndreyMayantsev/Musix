@@ -1,5 +1,7 @@
 import logging
-
+from musix_app.api.tracks.routes import tracks_router
+from musix_app.api.system.routes import system_router
+from musix_app.models.models import FolderModel, MusicTrackModel
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from musix_app.core.logger import setup_logging
@@ -8,8 +10,7 @@ from musix_app.services.database_service import db_service
 setup_logging()
 logger = logging.getLogger("musix")
 
-from musix_app.api.tracks.routes import tracks_router
-from musix_app.api.system.routes import system_router
+
 
 
 @asynccontextmanager

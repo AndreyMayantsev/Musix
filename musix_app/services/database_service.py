@@ -1,7 +1,5 @@
 from pathlib import Path
-from typing import Dict
-
-import musix_app.models.models as models
+from musix_app.models.models import FolderModel, MusicTrackModel
 from musix_app.core.hash_id import get_hex_id
 from musix_app.core.logger import get_logger
 from sqlmodel import SQLModel, create_engine, Session, select
@@ -34,9 +32,9 @@ class DataBaseService:
                 if item.is_dir():
                     full_path = str(item.resolve())  # Реальный путь, например: "D:\Music\Linkin Park"
                     folder_id = get_hex_id(full_path)
-                    exists = session.get(models.FolderModel, folder_id)
+                    exists = session.get(FolderModel, folder_id)
                     if not exists:
-                        folder_record = models.FolderModel(
+                        folder_record = FolderModel(
                             id=folder_id,
                             path=full_path
                         )
@@ -46,8 +44,8 @@ class DataBaseService:
 
     def sync_all_tracks(self, root_directory: Path = None):
         with Session(self.engine) as session:
-            folders = session.exec(select(models.FolderModel)).all()
-            existing_track_ids = set(session.exec(select(models.MusicTrackModel.id)).all())
+            folders = session.exec(select(FolderModel)).all()
+            existing_track_ids = set(session.exec(select(MusicTrackModel.id)).all())
             added_count = 0
 
             for folder in folders:
@@ -81,11 +79,12 @@ class DataBaseService:
 
     def get_all_tracks(self):
         with Session(self.engine) as session:
-             return session.exec(select(models.MusicTrackModel)).all()
+             return session.exec(select(MusicTrackModel)).all()
 
     def get_track(self, track_id: str):
         with Session(self.engine) as session:
-             return session.get(models.MusicTrackModel, track_id)
+             return session.get(MusicTrackModel, track_id)
+
 
 # Service instance
 db_service = DataBaseService()

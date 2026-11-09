@@ -18,9 +18,11 @@ class MusicTrackBase(SQLModel):
     bitrate: int | None = Field(default=None, description="bitrate bps")
     duration: float | None = Field(default=None, description="sec")
 
+
 class MusicTrackModel(MusicTrackBase, table=True):
     __tablename__ = "music_tracks"
     file: str = Field(description="File path")
+
 
 class MusicTrackPublic(MusicTrackBase):
     pass
