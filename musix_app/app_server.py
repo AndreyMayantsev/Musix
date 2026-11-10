@@ -30,6 +30,7 @@ class AppServer:
         self.home_path = app_settings.music_path
         self.music_service = music_service
         self.app_service = app_service
+        self.app_service.set_database_service(self.database_service)
         self.system_service = system_service
         log.info(f"AppServer init [{self.server_counter}]")
 

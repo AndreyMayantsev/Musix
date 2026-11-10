@@ -45,10 +45,19 @@ class MusicTrackPublic(MusicTrackBase):
 """
 Application models
 """
-class ApplicationModel(SQLModel, table=True):
-    __tablename__ = "applications"
+class ApplicationModelBase(SQLModel):
 
-    id: str = Field(description="ApplicationID", primary_key=True)
     os: str | None = Field(default=None, description="Operation System")
     name: str | None = Field(default=None, description="Operation System")
     info: str | None = Field(default=None, description="HW info")
+
+
+class ApplicationModel(ApplicationModelBase, table=True):
+    __tablename__ = "application"
+
+    id: str = Field(description="ApplicationID", primary_key=True)
+    finger_print: str = Field(description="Application Uniq Code")
+
+
+class ApplicationModelCreate(ApplicationModelBase):
+    pass
