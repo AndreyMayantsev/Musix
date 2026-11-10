@@ -1,6 +1,7 @@
 from musix_app.core.logger import get_logger
 from pydantic import BaseModel, Field
 
+from musix_app.services.database_service import DataBaseService
 
 log = get_logger("mu6.appservice")
 
@@ -14,10 +15,16 @@ class AppInfo(BaseModel):
 class AppService:
 
     def __init__(self):
+        self.database_service = None
         self.registered_apps = {}
 
+    def set_database_service(self, database_svc: DataBaseService):
+        self.database_service = database_svc
+
     def register_app(self, app_id: str, app_info: str):
-        self.registered_apps[app_id] = app_info
+        if not self.database_service:
+            raise Exception("Database service is None!")
+
 
     def get_registered_app(self, app_id: str):
         if app_id not in self.registered_apps:

@@ -1,10 +1,10 @@
 from pathlib import Path
-from musix_app.models.models import FolderModel, MusicTrackModel
+from musix_app.models.models import FolderModel, MusicTrackModel, ApplicationModel
 from musix_app.core.hash_id import get_hex_id
 from musix_app.core.logger import get_logger
 from sqlmodel import SQLModel, create_engine, Session, select
-
 from musix_app.core.music_track_loader import MusicTrackLoader
+
 
 log = get_logger("mu6.database")
 
