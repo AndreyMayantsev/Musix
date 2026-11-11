@@ -36,8 +36,8 @@ class AppServer:
         log.info(f"AppServer init [{self.server_counter}]")
 
     def __init_database(self, database_service: DataBaseService, music_path: Path):
-        self.database_service = database_service
         start_time = time.time()
+        self.database_service = database_service
         self.database_service.create_db_and_tables()
         self.database_service.sync_subfolders(music_path)
         self.database_service.sync_all_tracks()

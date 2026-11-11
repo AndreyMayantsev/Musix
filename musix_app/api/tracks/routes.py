@@ -1,12 +1,11 @@
 import os
 from fastapi import APIRouter, Request, HTTPException, Depends
 from fastapi.responses import StreamingResponse
-from multipart import file_path
-
 from musix_app.api.composer import BaseResponse
 from musix_app.app_server import AppServer
 from musix_app.dependencies import get_server
 from musix_app.models.models import MusicTrackPublic
+
 
 tracks_router = APIRouter()
 
