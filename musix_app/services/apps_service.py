@@ -42,4 +42,5 @@ class AppService:
             session.add(application)
             session.commit()
             session.refresh(application)
-            return application
+
+            return application.id
