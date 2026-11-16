@@ -61,3 +61,13 @@ class ApplicationModel(ApplicationModelBase, table=True):
 
 class ApplicationModelCreate(ApplicationModelBase):
     pass
+
+
+"""
+Favourites
+"""
+class FavouritesModel(SQLModel, table=True):
+    __tablename__ = "favourites"
+
+    app_id: str = Field(description="Application ID", foreign_key="application.id", primary_key=True)
+    track_id: str = Field(description="Track ID", foreign_key="music_tracks.id", primary_key=True)
